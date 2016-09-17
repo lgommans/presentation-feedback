@@ -4,7 +4,7 @@
 	}
 
 	?>
-<section style="display: inline-block; width: 320px; float: left;">
+<section style="display: inline-block; width: 320px;">
 	<b>Give feedback on a presentation</b>
 	<form>
 		Presentation code<br>

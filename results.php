@@ -10,7 +10,7 @@
 			margin: 0;
 		}
 		.star {
-			font-size: 14pt;
+			font-size: 16pt;
 		}
 	</style>
 <?php 

@@ -25,9 +25,9 @@
 				require('frontpage.php');
 			}
 		?>
-		<aside style="position: absolute; bottom: 10px;">
+		<footer style="display: block; margin-top: 125px; margin-bottom: 75px; color: #555;">
 			This website is
-			<a href="https://github.com/lgommans/presentation-feedback">free software.</a>
-		</aside>
+			<a style="color: #555;" href="https://github.com/lgommans/presentation-feedback">free software.</a>
+		</footer>
 	</body>
 </html>
