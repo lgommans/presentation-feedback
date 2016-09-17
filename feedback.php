@@ -55,19 +55,23 @@
 			or die('Database error 762');
 
 		$feedbackid = $db->insert_id;
+		$i = 0;
 		foreach ($_POST['q'] as $answer) {
 			$response = $db->escape_string($answer);
-			$db->query("INSERT INTO presentation_question_responses (feedbackid, response)
-				VALUES($feedbackid, '$response')")
+			$db->query("INSERT INTO presentation_question_responses
+				(feedbackid, response, sequenceNumber)
+				VALUES($feedbackid, '$response', $i)")
 				or die('Database error 1525');
+			$i++;
 		}
-		echo "Thank you for your feedback!";
+		echo "<strong>Thank you for your feedback!</strong>";
 	}
 	else {
 		$result = $db->query('SELECT pq.sequenceNumber, pq.question, pq.type
 			FROM presentations p
 			INNER JOIN presentation_questions pq ON pq.presentationid = p.id
-			WHERE p.code = "' . $db->escape_string($code) . '"')
+			WHERE p.code = "' . $db->escape_string($code) . '"
+			ORDER BY pq.sequenceNumber')
 			or die('Database error 7. Please try again in a minute.');
 
 		$questions = [];

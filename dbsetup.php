@@ -36,12 +36,14 @@
 		$db->query('CREATE TABLE presentation_question_responses (
 			id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 			feedbackid INT NOT NULL,
+			sequenceNumber INT NOT NULL,
 			response VARCHAR(35000)
 			)') or die('Database error 14717');
 
 		$db->query('CREATE TABLE presentation_maillimit (
 			id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-			emailaddress VARCHAR(32) NOT NULL UNIQUE
+			emailaddress VARCHAR(32) NOT NULL UNIQUE,
+			datetime INT UNSIGNED
 			)') or die('Database error 34150');
 	}
 

@@ -34,9 +34,16 @@
 
 		if (!empty($_POST['email'])) {
 			$addr = md5($_POST['email'] . round($time / 60));
-			$db->query("INSERT INTO presentation_maillimit (emailaddress) VALUES('$addr')") or die('Error 51. Did you email to this address within the last minute? If so, try again in a minute.');
-			if (!mail($_POST['email'], 'Your presentation feedback codes', $email, "Content-Type: text/html\r\nFrom: " . $email_from)) {
+			$t = time();
+			$db->query("INSERT INTO presentation_maillimit (emailaddress, datetime)
+				VALUES('$addr', $t)")
+				or die('Error 51. Did you email to this address within the last minute? If so, try again in a minute.');
+			if (!mail($_POST['email'], 'Your presentation feedback codes', $email,
+					"Content-Type: text/html\r\nFrom: " . $email_from)) {
 				echo "Sending the email failed.";
+			}
+			else {
+				echo 'A copy of this page has been emailed to you.<br><br>';
 			}
 		}
 
