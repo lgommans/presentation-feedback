@@ -17,3 +17,6 @@ $code_validity = 14; // Days
 // Display language of the site. See translation.php for supported values.
 $language = 'en';
 
+// URL where the source code can be found
+$repo_url = 'https://github.com/lgommans/presentation-feedback';
+

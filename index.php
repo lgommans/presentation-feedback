@@ -50,7 +50,7 @@
 		?>
 		<footer style="display: block; margin-top: 125px; margin-bottom: 75px; color: #555;">
 			<?php echo translate('this site is'); ?>
-			<a style="color: #555;" href="https://github.com/lgommans/presentation-feedback"><?php echo translate('free software'); ?>.</a>
+			<a style="color: #555;" href="<?php echo $repo_url; ?>"><?php echo translate('free software'); ?>.</a>
 		</footer>
 	</body>
 </html>
