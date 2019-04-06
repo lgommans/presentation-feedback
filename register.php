@@ -35,10 +35,13 @@
 			translate('Results link:'));
 
 		if (!empty($_POST['email'])) {
-			$addr = md5($_POST['email'] . round($time / 60));
-			$t = time();
+			// Clean up the database while we're at it
+			$db->query('DELETE FROM presentation_maillimit WHERE `datetime` < ' . (time() - (3600 * 24 * 99)))
+				or die(translate('dberr') . '14904');
+
+			$addr = substr(hash('sha256', $_POST['email'] . round($time / 60)), 0, 32);
 			$db->query("INSERT INTO presentation_maillimit (emailaddress, datetime)
-				VALUES('$addr', $t)")
+				VALUES('$addr', $time)")
 				or die(translate('Error') . ' 51. ' . translate('mailing too fast'));
 			if (!mail($_POST['email'], translate('your feedback codes'), $email,
 					"Content-Type: text/html\r\nFrom: " . $email_from)) {
