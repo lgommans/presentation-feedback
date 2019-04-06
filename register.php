@@ -94,7 +94,7 @@
 			function addQuestion() {
 				qcounter++;
 				var question = document.createElement('div');
-				question.innerHTML = 'Question ' + qcounter.toString() + '<br><input maxlength=255 name="question[]"><br>'
+				question.innerHTML = '<?php echo translate('Question'); ?> ' + qcounter.toString() + '<br><input maxlength=255 name="question[]"><br>'
 					+ '<select name="type[]"><option value=1><?php echo translate('Star rating'); ?></option><option value=2><?php echo translate('Text field'); ?></option></select><br><br>';
 				$("#questions").appendChild(question);
 			}

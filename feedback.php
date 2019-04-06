@@ -111,7 +111,7 @@
 						}
 					}
 				?>
-				<input type=submit value=Submit>
+				<input type=submit value="<?php echo translate('Submit'); ?>">
 			</form>
 			<script>
 				function $(q) {
