@@ -23,11 +23,12 @@
 	}
 
 	$result = $db->query('SELECT id, title, speaker, link FROM presentations
-		WHERE code = "' . $db->escape_string($code) . '"')
+		WHERE code = "' . $db->escape_string($code) . '"
+		AND `datetime` > ' . (time() - ($code_validity * 3600 * 24)))
 		or die('Database error 5. Please try again in a minute.');
 	
 	if ($result->num_rows == 0) {
-		die('Presentation code not found. <a href="./">Enter a different one</a>');
+		die('Presentation code not found or the code has expired. <a href="./">Enter a different one</a>');
 	}
 
 	$row = $result->fetch_row();
