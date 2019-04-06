@@ -1,6 +1,6 @@
 # Presentation Feedback Tool
 
-Get feedback on your presentations. View the live site (no signup needed):  
+Get feedback on your presentations. View the live site:  
 https://lgms.nl/p/presentation-feedback
 
 ----
@@ -12,30 +12,23 @@ next week. Naturally, I had to create it.
 You can use my installation of this software (see link above) for free, or
 install a version for yourself.
 
+
 ## Installing
 
-Installing requires a MySQL/MariaDB server. Optionally, for all features to
-function, PHP's `mail()` function should work. Modify `config.php` and place
-all files in a folder on your website. It requires PHP 5.4 or maybe 5.3. The
-database setup is automatic. See `dbsetup.php` for which tables are created.
+Dependencies:
 
-## License
+- MySQL/MariaDB
+- Tested with PHP 5.4 and 7.0, but might work with others
+  - For all features to work, PHP's `mail()` function should work
 
-Copyright 2016, Luc Gommmans.
+Setup:
 
-You are free to:
+1. Place all files in a folder on your website.
+   (You might want to disallow access to the `.git` folder!)
+2. Modify `config.php`.
+   (Database setup is automatic, see `dbsetup.php` for which tables are created.)
+3. Done!
 
-- copy, study, modify and redistribute the source code and associated
-  documentation;
-- run the software for your personal use (including up to 5 other users);
-
-provided that:
-
-- this license remains unchanged;
-- the above copyright notice remains in place;
-- your copy includes a link to this Github repository visible to users; and
-- you unconditionally provide a copy of the source code including your
-  modifications.
 
 ## Contributing
 
