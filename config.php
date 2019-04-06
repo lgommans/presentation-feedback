@@ -14,3 +14,6 @@ $email_from = 'presentation-feedback-tool@example.org';
 // How long are presentation codes valid for?
 $code_validity = 14; // Days
 
+// Display language of the site. See translation.php for supported values.
+$language = 'en';
+

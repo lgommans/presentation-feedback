@@ -25,10 +25,10 @@
 	$result = $db->query('SELECT id, title, speaker, link FROM presentations
 		WHERE code = "' . $db->escape_string($code) . '"
 		AND `datetime` > ' . (time() - ($code_validity * 3600 * 24)))
-		or die('Database error 5. Please try again in a minute.');
+		or die(translate('dberr') . '5.');
 	
 	if ($result->num_rows == 0) {
-		die('Presentation code not found or the code has expired. <a href="./">Enter a different one</a>');
+		die(translate('code not found'));
 	}
 
 	$row = $result->fetch_row();
@@ -53,7 +53,7 @@
 
 	if (isset($_POST['code'])) {
 		$db->query("INSERT INTO presentation_feedback (presentationid) VALUES($presentationid)")
-			or die('Database error 762');
+			or die(translate('dberr') . '762');
 
 		$feedbackid = $db->insert_id;
 		$i = 0;
@@ -62,10 +62,10 @@
 			$db->query("INSERT INTO presentation_question_responses
 				(feedbackid, response, sequenceNumber)
 				VALUES($feedbackid, '$response', $i)")
-				or die('Database error 1525');
+				or die(translate('dberr') . '1525');
 			$i++;
 		}
-		echo "<strong>Thank you for your feedback!</strong>";
+		echo '<strong>' . translate('thanks for feedback') . '</strong>';
 	}
 	else {
 		$result = $db->query('SELECT pq.sequenceNumber, pq.question, pq.type
@@ -73,7 +73,7 @@
 			INNER JOIN presentation_questions pq ON pq.presentationid = p.id
 			WHERE p.code = "' . $db->escape_string($code) . '"
 			ORDER BY pq.sequenceNumber')
-			or die('Database error 7. Please try again in a minute.');
+			or die(translate('dberr') . '7');
 
 		$questions = [];
 		while ($row = $result->fetch_row()) {

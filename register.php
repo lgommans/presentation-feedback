@@ -12,7 +12,7 @@
 		$speaker = $db->escape_string($_POST['name']);
 		$link = $db->escape_string($_POST['link']);
 		$time = time();
-		$db->query("INSERT INTO presentations (code, secret, datetime, title, speaker, link) VALUES('$code', '$secret', $time, '$title', '$speaker', '$link')") or die('Database error 148');
+		$db->query("INSERT INTO presentations (code, secret, datetime, title, speaker, link) VALUES('$code', '$secret', $time, '$title', '$speaker', '$link')") or die(translate('dberr') . '148');
 
 		$id = $db->insert_id;
 		$types = [];
@@ -23,27 +23,29 @@
 		foreach ($_POST['question'] as $question) {
 			$type = intval($types[$questionNumber]);
 			$question = $db->escape_string($question);
-			$db->query("INSERT INTO presentation_questions (presentationid, sequenceNumber, question, type) VALUES($id, $questionNumber, '$question', $type)") or die('Database error 4184');
+			$db->query("INSERT INTO presentation_questions (presentationid, sequenceNumber, question, type) VALUES($id, $questionNumber, '$question', $type)") or die(translate('dberr') . '4184');
 			$questionNumber++;
 		}
 
 		$publink = "$email_url?code=$code";
 		$privlink = "$email_url?secret=$secret";
-		$email = "Your audience code: $code<br>The direct link: <a href='$publink'>$publink</a><br><br>"
-			. "Your private link to view the results: <a href='$privlink'>$privlink</a>";
+		$email = sprintf("%s $code<br>%s <a href='$publink'>$publink</a><br><br>%s <a href='$privlink'>$privlink</a>",
+			translate('Your audience code:'),
+			translate('The direct link:'),
+			translate('Results link:'));
 
 		if (!empty($_POST['email'])) {
 			$addr = md5($_POST['email'] . round($time / 60));
 			$t = time();
 			$db->query("INSERT INTO presentation_maillimit (emailaddress, datetime)
 				VALUES('$addr', $t)")
-				or die('Error 51. Did you email to this address within the last minute? If so, try again in a minute.');
-			if (!mail($_POST['email'], 'Your presentation feedback codes', $email,
+				or die(translate('Error') . ' 51. ' . translate('mailing too fast'));
+			if (!mail($_POST['email'], translate('your feedback codes'), $email,
 					"Content-Type: text/html\r\nFrom: " . $email_from)) {
-				echo "Sending the email failed.";
+				echo translate('failed sending mail');
 			}
 			else {
-				echo 'A copy of this page has been emailed to you.<br><br>';
+				echo translate('mailed copy') . '<br><br>';
 			}
 		}
 
@@ -51,37 +53,37 @@
 	}
 	else {
 		?>
-			<style>
-				input {
-					width: 400px;
-				}
-			</style>
-			<form method=post>
-			<b>Information to show visitors</b><br>
+		<style>
+			input {
+				width: 400px;
+			}
+		</style>
+		<form method=post>
+			<b><?php echo translate('info for visitors'); ?></b><br>
 			<br>
-			Presentation title<br>
+			<?php echo translate('Presentation title'); ?><br>
 			<input name=title value="<?php echo htmlspecialchars($_POST['title']); ?>" maxlength=255><br>
 			<br>
-			Your name<br>
+			<?php echo translate('Your name'); ?><br>
 			<input name=name maxlength=255><br>
 			<br>
-			A link, e.g. your website or Twitter account<br>
-			<input name=link maxlength=255><br>
+			<?php echo translate('A link'); ?><br>
+			<input name=link maxlength=255 placeholder='https://example.com'><br>
 			<br>
-			<b>Questions</b><br>
+			<b><?php echo translate('Questions'); ?></b><br>
 			<br>
 			<div id="questions"></div>
-			<input type=button value='Add question' onclick='addQuestion();'><br>
+			<input type=button value='<?php echo translate('Add question'); ?>' onclick='addQuestion();'><br>
 			<br>
 			<hr>
 			<br>
-			After clicking 'create', you will be given a public code (to give your audience, valid for 2 weeks) and a private code (to view the results).
-			If you want to email these to yourself, enter your email address here (optional). The address will be used once and is not stored.<br>
+			<?php echo translate('creation info'); ?><br>
 			<br>
-			Email address<br>
+			<?php echo translate('Email address'); ?><br>
 			<input name=email type=email maxlength=255><br>
 			<br>
-			<input type=submit value=Create>
+			<input type=submit value='<?php echo translate('Create'); ?>'>
+		</form>
 		<script>
 			function $(q) {
 				return document.querySelector(q);
@@ -90,7 +92,7 @@
 				qcounter++;
 				var question = document.createElement('div');
 				question.innerHTML = 'Question ' + qcounter.toString() + '<br><input maxlength=255 name="question[]"><br>'
-					+ '<select name="type[]"><option value=1>Star rating</option><option value=2>Text field</option></select><br><br>';
+					+ '<select name="type[]"><option value=1><?php echo translate('Star rating'); ?></option><option value=2><?php echo translate('Text field'); ?></option></select><br><br>';
 				$("#questions").appendChild(question);
 			}
 			qcounter = 0;

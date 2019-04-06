@@ -18,11 +18,11 @@
 		FROM presentations p
 		INNER JOIN presentation_questions pq ON pq.presentationid = p.id
 		WHERE secret = "' . $db->escape_string($_GET['secret']) . '"')
-		or die('Database error 58148. Please try again in a minute.');
+		or die(translate('dberr') . '58148.');
 	
 	$row = $result->fetch_row();
 	if ($row[0] === NULL) {
-		die('Presentation secret not found. <a href="./">Go to the homepage</a>');
+		die(translate('secret not found') . ' <a href="./">' . translate('goto home') . '</a>');
 	}
 
 	$presentationid = $row[0];
@@ -31,7 +31,7 @@
 	$link = $row[3];
 	$questionCount = $row[4];
 
-	echo "Results of feedback on...";
+	echo translate('results for...');
 	echo '<h1>' . htmlspecialchars($title) . '</h1>';
 	echo '&mdash; <i>' . htmlspecialchars($speaker) . '</i>';
 	if (!empty($link)) {
@@ -54,12 +54,12 @@
 	}
 
 	if ($question_n > 0) {
-		echo "<input type=button value='Previous question' onclick='location=\"?secret="
+		echo "<input type=button value='" . translate('Previous question') . "' onclick='location=\"?secret="
 			. htmlspecialchars($_GET['secret']) . "&question=" . ($question_n - 1) . "\";'>";
 	}
 
 	if ($question_n < $questionCount - 1) {
-		echo "<input type=button value='Next question' onclick='location=\"?secret="
+		echo "<input type=button value='" . translate('Next question') . "' onclick='location=\"?secret="
 			. htmlspecialchars($_GET['secret']) . "&question=" . ($question_n + 1) . "\";'>";
 	}
 
@@ -73,10 +73,10 @@
 		LEFT JOIN presentation_questions pq ON pq.sequenceNumber = pqr.sequenceNumber AND pq.presentationid = p.id
 		WHERE p.secret = '$dbSecret' AND pqr.sequenceNumber = $question_n
 		ORDER BY pf.id
-		") or die('Database error 71598.');
+		") or die(translate('dberr') . '71598.');
 
 	if ($result->num_rows == 0) {
-		die('Question not found. Maybe there are no responses yet?');
+		die(translate('question not found'));
 	}
 	$responses = [];
 	$avg = 0;
@@ -91,12 +91,12 @@
 		}
 	}
 
-	echo "Question " . ($question_n + 1) . ": '<i>" . htmlspecialchars($question) . "</i>'<br>";
+	echo translate('Question') . ' ' . ($question_n + 1) . ": '<i>" . htmlspecialchars($question) . "</i>'<br>";
 
 	if ($type == 1) {
 		// 5-star rating
 		$avg = round($avg / $nonBlankResponses * 10) / 10;
-		echo "Average rating: " . $avg . " out of 5. Individual ratings:<br>";
+		echo translate('avg rating') . $avg . ' ' . translate('out of 5.') . ' ' . translate('Individual ratings:') . '<br>';
 		$wstar = '&#9734;'; // white star
 		$bstar = '&#9733;'; // black star
 		foreach ($responses as $n=>$response) {
@@ -108,7 +108,7 @@
 				$i++;
 			}
 			if ($response === -1) {
-				echo " (blank)";
+				echo ' (' . translate('blank') . ')';
 			}
 			echo "<br>";
 		}
@@ -117,7 +117,7 @@
 	else if ($type == 2) {
 		foreach ($responses as $n=>$response) {
 			if (empty($response)) {
-				$response = '<i>(blank)</i>';
+				$response = '<i>(' . translate('blank') . ')</i>';
 			}
 			else {
 				$response = htmlspecialchars($response);
