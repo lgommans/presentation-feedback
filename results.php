@@ -76,7 +76,7 @@
 		") or die('Database error 71598.');
 
 	if ($result->num_rows == 0) {
-		die('Question not found');
+		die('Question not found. Maybe there are no responses yet?');
 	}
 	$responses = [];
 	$avg = 0;
