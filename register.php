@@ -5,7 +5,10 @@
 ?>
 <section style="display: inline-block; width: 710px;">
 <?php 
-	if (isset($_POST['name'])) {
+	if (!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+		print(translate('invalid email'));
+	}
+	else if (isset($_POST['name'])) {
 		$code = bin2hex(openssl_random_pseudo_bytes(3));
 		$secret = bin2hex(openssl_random_pseudo_bytes(5));
 		$title = $db->escape_string($_POST['title']);

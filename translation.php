@@ -46,6 +46,7 @@
 			'Star rating'         => 'Star rating',
 			'Text field'          => 'Text field',
 			'Submit'              => 'Submit',
+			'invalid email'       => 'That email address does not appear to be valid. Sorry about that, but please try a different value.'
 		],
 
 		'de' => [
@@ -94,6 +95,7 @@
 			'Star rating'         => 'Sterne vergeben',
 			'Text field'          => 'Textfeld',
 			'Submit'              => 'Senden',
+			'invalid email'       => 'Die Emailadresse scheint nicht gültig zu sein. Tut mir leid, aber versuch bitte einen anderen Wert.'
 		],
 
 		'nl' => [
@@ -142,6 +144,7 @@
 			'Star rating'         => 'Sterbeoordeling',
 			'Text field'          => 'Tekstveld',
 			'Submit'              => 'Verstuur',
+			'invalid email'       => 'Dat e-mailadres lijkt ongeldig. Sorry daarvoor, maar probeer a.u.b. een ander adres.'
 		],
 	];
 
