@@ -24,6 +24,11 @@
 		}
 		$questionNumber = 0;
 		foreach ($_POST['question'] as $question) {
+			if (empty($question)) {
+				// Don't add it if the user left the field empty.
+				// There is no way to remove unused questions currently so they'd have to start over otherwise...
+				continue;
+			}
 			$type = intval($types[$questionNumber]);
 			$question = $db->escape_string($question);
 			$db->query("INSERT INTO presentation_questions (presentationid, sequenceNumber, question, type) VALUES($id, $questionNumber, '$question', $type)") or die(translate('dberr') . '4184');
@@ -70,13 +75,14 @@
 			<?php echo translate('Presentation title'); ?><br>
 			<input name=title value="<?php echo htmlspecialchars($_POST['title']); ?>" maxlength=255><br>
 			<br>
-			<?php echo translate('Your name'); ?><br>
+			<?php echo translate('Your name') . ' ' . translate('(optional)'); ?><br>
 			<input name=name maxlength=255><br>
 			<br>
-			<?php echo translate('A link'); ?><br>
+			<?php echo translate('A link') . ' ' . translate('(optional)'); ?><br>
 			<input name=link maxlength=255 placeholder='https://example.com'><br>
 			<br>
 			<b><?php echo translate('Questions'); ?></b><br>
+			<?php echo translate('can leave empty'); ?><br>
 			<br>
 			<div id="questions"></div>
 			<input type=button value='<?php echo translate('Add question'); ?>' onclick='addQuestion();'><br>
@@ -85,7 +91,7 @@
 			<br>
 			<?php echo translate('creation info'); ?><br>
 			<br>
-			<?php echo translate('Email address'); ?><br>
+			<?php echo translate('Email address') . ' ' . translate('(optional)'); ?><br>
 			<input name=email type=email maxlength=255><br>
 			<br>
 			<input type=submit value='<?php echo translate('Create'); ?>'>
