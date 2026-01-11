@@ -96,7 +96,7 @@
 	if ($type == 1) {
 		// 5-star rating
 		$avg = round($avg / $nonBlankResponses * 10) / 10;
-		echo translate('avg rating') . $avg . ' ' . translate('out of 5.') . ' ' . translate('Individual ratings:') . '<br>';
+		echo translate('avg rating') . ' ' . $avg . ' ' . translate('out of 5.') . ' ' . translate('Individual ratings:') . '<br>';
 		$wstar = '&#9734;'; // white star
 		$bstar = '&#9733;'; // black star
 		foreach ($responses as $n=>$response) {
