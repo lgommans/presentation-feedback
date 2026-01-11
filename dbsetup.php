@@ -37,7 +37,7 @@
 			id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 			feedbackid INT NOT NULL,
 			sequenceNumber INT NOT NULL,
-			response VARCHAR(35000)
+			response VARCHAR(' . $db->escape_string($max_answer_size) . ')
 			)') or die(translate('dberr') . '14717');
 
 		$db->query('CREATE TABLE presentation_maillimit (

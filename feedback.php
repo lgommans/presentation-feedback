@@ -103,7 +103,7 @@
 
 						else if ($type == 2) {
 							// text field
-							echo "<textarea name='q[]' cols=75 rows=2></textarea><br><br>";
+							echo "<textarea name='q[]' cols=75 rows=2 maxlength=$max_answer_size></textarea><br><br>";
 						}
 
 						else {
