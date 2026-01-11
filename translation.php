@@ -136,7 +136,7 @@
 			'Your name'           => 'Jouw naam',
 			'Questions'           => 'Vragen',
 			'Add question'        => 'Vraag toevoegen',
-			'creation info'       => "Als je op aanmaken klikt, krijg je een publiekscode (om aan jouw publiek te geven, geldig voor twee weken) en een code om de resultaten in te zien.\n"
+			'creation info'       => "Nadat je op aanmaken klikt, krijg je een publiekscode (om aan jouw publiek te geven, geldig voor twee weken) en een code om de resultaten in te zien.\n"
 			                       . "Als je deze aan jezelf wil e-mailen, vul dan je e-mailadres hier in (optioneel). Het adres wordt eenmalig gebruikt en niet opgeslagen.",
 			'Email address'       => 'E-mailadres',
 			'A link'              => 'Een link, bijvoorbeeld jouw website of Twitter-account',
