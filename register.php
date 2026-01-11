@@ -47,7 +47,7 @@
 				VALUES('$addr', $time)")
 				or die(translate('Error') . ' 51. ' . translate('mailing too fast'));
 			if (!mail($_POST['email'], translate('your feedback codes'), $email,
-					"Content-Type: text/html\r\nFrom: " . $email_from)) {
+					"Content-Type: text/html\r\nFrom: " . $email_from, "-f$email_from")) {
 				echo translate('failed sending mail');
 			}
 			else {
